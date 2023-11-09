@@ -37,7 +37,7 @@ class DynamicArray:
         index = self.end_index_stack.pop()
         ret_val = self.storage[index]
         self.size -= 1
-        return self.storage[index]
+        return ret_val
  
 
     def resize(self) -> None:

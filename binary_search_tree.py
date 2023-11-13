@@ -53,48 +53,77 @@ class BinarySearchTree:
                     curr_node = curr_node.right
         return -1
     
-    def delete(self, val):
-        if not self.root:
-            return False
+    def successor(self, node: Node, left_or_right: str):
+        if not node:
+            return None
+        currNode = node
+        while currNode:
+            if currNode.left:
+                currNode = currNode.left
+            else:
+                return currNode
+
+    def deleteNode(self, root: Node, key: int) -> Node:
+        if not root:
+            return None
+        if root.val == key:
+            if not root.left and not root.right:
+                return None
+            elif not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            else:
+                succ_node = self.successor(root.right, "right")
+                root.val = succ_node.val
+                root.right = self.deleteNode(root.right, succ_node.val)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
         else:
-            curr_node = self.root
-            is_deleted = False
-            while curr_node:
-                if curr_node.val == val or is_deleted:    
-                    if curr_node.right:
-                        # if curr_node == self.root:
-                        #     self.root = curr_node.right
-                        curr_node.val = curr_node.right.val
-                        repl_node = curr_node.right
-                        if not repl_node.left and not repl_node.right:
-                            curr_node.right = None
-                            curr_node = curr_node.right
-                        else:
-                            curr_node = repl_node
-                    elif curr_node.left:
-                        # if curr_node == self.root:
-                        #     self.root = curr_node.left
-                        curr_node.val = curr_node.left.val
-                        repl_node = curr_node.left
-                        if not repl_node.left and not repl_node.right:
-                            curr_node.left = None
-                            curr_node = curr_node.left
-                        else:
-                            curr_node = repl_node
-                    else:
-                        curr_node = None
-                    is_deleted = True
-                if not is_deleted:
-                    par_node = curr_node
-                    if val < curr_node.val:
-                        curr_node = curr_node.left
-                    else:
-                        curr_node = curr_node.right
-                    if curr_node and curr_node.val == val:
-                            if not curr_node.left and not curr_node.right:
-                                par_node.left = None
-                                return
-            return is_deleted       
+            root.right = self.deleteNode(root.right, key)
+        return root
+    
+    def delete(self, key) -> Node:
+        return self.deleteNode(self.root, key=key)
+        
+        # doesn't handle finding the correct successor and replacement
+        # if not self.root:
+        #     return False
+        # else:
+        #     curr_node = self.root
+        #     is_deleted = False
+        #     while curr_node:
+        #         if curr_node.val == key or is_deleted:    
+        #             if curr_node.right:
+        #                 curr_node.val = curr_node.right.val
+        #                 repl_node = curr_node.right
+        #                 if not repl_node.left and not repl_node.right:
+        #                     curr_node.right = None
+        #                     curr_node = curr_node.right
+        #                 else:
+        #                     curr_node = repl_node
+        #             elif curr_node.left:
+        #                 curr_node.val = curr_node.left.val
+        #                 repl_node = curr_node.left
+        #                 if not repl_node.left and not repl_node.right:
+        #                     curr_node.left = None
+        #                     curr_node = curr_node.left
+        #                 else:
+        #                     curr_node = repl_node
+        #             else:
+        #                 curr_node = None
+        #             is_deleted = True
+        #         if not is_deleted:
+        #             par_node = curr_node
+        #             if key < curr_node.val:
+        #                 curr_node = curr_node.left
+        #             else:
+        #                 curr_node = curr_node.right
+        #             if curr_node and curr_node.val == key:
+        #                     if not curr_node.left and not curr_node.right:
+        #                         par_node.left = None
+        #                         return
+        #     return is_deleted       
                 
 
     def in_order(self, curr):

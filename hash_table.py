@@ -70,3 +70,4 @@ if __name__ == "__main__":
     print(ht.get(12))
     print(ht.delete(2))
     print(ht.get(2))
+    print(ht.get(12))

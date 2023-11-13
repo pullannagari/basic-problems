@@ -5,51 +5,51 @@ class HashTable:
         self.storage = [None]*10
     
     def hash_function(self, k):
-        if not k:
+        if k is None:
             return
         return abs(k%10)
     
-    def add(self, k, v) -> None:
-        if not k or not v:
+    def add(self, key, value) -> None:
+        if key is None or value is None:
             return
-        hash_val = self.hash_function(k)
-        if not self.storage[hash_val]:
+        hash_val = self.hash_function(key)
+        if self.storage[hash_val] is None:
             ll = deque()
-            ll.append((k,v))
+            ll.append((key,value))
             self.storage[hash_val] = ll
         else:
             update = False
             ll = self.storage[hash_val]
             for item in ll:
-                if item[0] == k:
-                    item[1] = v
+                if item[0] == key:
+                    item[1] = value
                     update = True
             if not update:
-                ll.append((k,v))
+                ll.append((key,value))
     
-    def get(self, k) -> int:
-        if not k:
+    def get(self, key) -> int:
+        if key is None:
             return
-        hash_val = self.hash_function(k)
-        if not self.storage[hash_val]:
+        hash_val = self.hash_function(key)
+        if self.storage[hash_val] is None:
             return -1
         ll:deque = self.storage[hash_val]
         for item in ll:
-            if item[0] == k:
+            if item[0] == key:
                 return item[1]
         return -1
     
-    def delete(self, k) -> None:
-        if not k:
+    def delete(self, key) -> None:
+        if key is None:
             return -1
-        hash_val = self.hash_function(k)
-        if not self.storage[hash_val]:
+        hash_val = self.hash_function(key)
+        if self.storage[hash_val] is None:
             return -1
         ll:deque = self.storage[hash_val]
         for item in ll:
-            if item[0] == k:
+            if item[0] == key:
                 v = item[1]
-                ll.remove((k,v))
+                ll.remove((key,v))
                 return v
         return -1
     

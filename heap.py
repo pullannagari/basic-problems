@@ -61,3 +61,16 @@ class Heap:
             return val
         self._swap_and_adjust("down")
         return val
+    
+if __name__ == "__main__":
+    hp = Heap()
+    hp.push(1)
+    hp.push(2)
+    hp.push(-1)
+    hp.push(-2)
+    hp.push(-10)
+    assert hp.pop() == -10
+    assert hp.pop() == -2
+    assert hp.pop() == -1
+    assert hp.pop() == 1
+    assert hp.pop() == 2

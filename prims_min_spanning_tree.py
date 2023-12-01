@@ -1,3 +1,14 @@
+import heapq
+
+# used to find the minimum spanning tree
+# minimum spanning tree is a tree which has the following properties
+# min cost
+# all nodes/vertices connected
+# undirected
+# acyclic
+# uses the similar strategy as the dijkstra's shortest path(BFS variation)
+# weight is not aggregated, rather calculated for individul nodes
+# time complexity is ElogV where E is the edges and V is the vertices
 class Solution:
     def minimumSpanningTree(self, n: int, edges: list) -> int:
         adj_list = {}

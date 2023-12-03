@@ -2,6 +2,7 @@ import heapq
 # dijkstra's algorithm to calculate shortest path
 # we can't use regular BFS to explore all the nodes level by level and find the shortest path since there are weights
 # we instead use dijkstra's which is kind of a BFS, but uses minheap instead of a queue to find the next node
+# time complexity is ElogV where E is edges and V is vertices
 class Solution:
     def shortestPath(self, n: int, edges: list, src: int) -> dict:
         adj_list = {}
